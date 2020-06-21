@@ -12,9 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".message.MessageActivity"></activity>
         <activity
             android:name=".TabActivity"
-            android:label="@string/title_activity_tab"></activity>
+            android:label="@string/title_activity_tab" />
         <activity android:name=".ChatActivity" />
         <activity android:name=".RegisterActivity">
             <intent-filter>

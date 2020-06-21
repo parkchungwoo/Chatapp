@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,10 +30,14 @@ public class ChatActivity extends AppCompatActivity {
     MyAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     EditText etText;
-    Button btnSend;
+    Button button;
     String stEmail;
     FirebaseDatabase database;
     ArrayList<Chat> chatArrayList;
+    private String uid;
+    private String chatRoomUid;
+    private String destinationUid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +46,7 @@ public class ChatActivity extends AppCompatActivity {
 
         chatArrayList = new ArrayList<>();
         stEmail = getIntent().getStringExtra("email");
+
         Button btnFinish = (Button) findViewById(R.id.btnFinish);
         btnFinish.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +54,7 @@ public class ChatActivity extends AppCompatActivity {
                 finish();
             }
         });
-        btnSend = (Button)findViewById(R.id.btnSend);
+        button = (Button)findViewById(R.id.btnSend);
         etText = (EditText)findViewById(R.id.etText);
 
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
@@ -63,7 +69,7 @@ public class ChatActivity extends AppCompatActivity {
 
         // specify an adapter (see also next example)
         String[] myDataset = {"test1", "test2", "test3", "test4"};
-        mAdapter = new MyAdapter(chatArrayList, stEmail);
+        mAdapter = new MyAdapter(chatArrayList, uid);
         recyclerView.setAdapter(mAdapter);
 
         ChildEventListener childEventListener = new ChildEventListener() {
@@ -123,12 +129,17 @@ public class ChatActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         };
+        uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        destinationUid = getIntent().getStringExtra("destinationUid");
         DatabaseReference ref = database.getReference("message");
         ref.addChildEventListener(childEventListener);
-
-        btnSend.setOnClickListener(new View.OnClickListener() {
+        recyclerView = (RecyclerView)findViewById(R.id.my_recycler_view);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Chat chatModel = new Chat();
+                chatModel.users.put(uid,true);
+                chatModel.users.put(destinationUid,true);
                 String stText = etText.getText().toString();
                 Toast.makeText(ChatActivity.this, "MSG : "+stText,Toast.LENGTH_LONG).show();
                 // Write a message to the database
@@ -140,7 +151,7 @@ public class ChatActivity extends AppCompatActivity {
                 DatabaseReference myRef = database.getReference("message").child(datetime);
 
                 Hashtable<String, String> numbers = new Hashtable<String, String>();
-                numbers.put("email", stEmail);
+                numbers.put("email", uid);
                 numbers.put("text", stText);
 
                 myRef.setValue(numbers);

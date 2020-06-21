@@ -42,7 +42,6 @@ public class ProfileFragment extends Fragment {
     int REQUEST_EXTERNAL_STORAGE_PERMISSION = 1002;
 
 
-    private NotificationsViewModel notificationsViewModel;
     ImageView ivUser;
     private StorageReference mStorageRef;
     String stEmail;

@@ -1,52 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginBottom="10dp">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:orientation="horizontal">
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:id="@+id/chatitem_imageview"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:id="@+id/userImageView"
-            android:src="@drawable/ic_baseline_account_circle_24"/>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_gravity="center_vertical"
-            android:orientation="vertical">
-                
-            <TextView
-                android:id="@+id/userNameView"
-                android:hint="user name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <ImageView
-                android:id="@+id/messageImageView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="fitCenter"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:hint="message view"
-                android:layout_height="wrap_content"
-                android:id="@+id/userMessageView"/>
-
-        </LinearLayout>
-
-
-
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/chatitem_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Message List" />
 
 </LinearLayout>

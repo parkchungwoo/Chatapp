@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.chatapp.ui.dashboard.MessageFragment"
+        android:name="com.example.chatapp.ui.dashboard.MessageListFragment"
         android:label="@string/title_friends"
         tools:layout="@layout/fragment_users" />
 
@@ -15,7 +15,7 @@
         android:id="@+id/navigation_dashboard"
         android:name="com.example.chatapp.ui.home.UsersFragment"
         android:label="@string/title_message"
-        tools:layout="@layout/fragment_message" />
+        tools:layout="@layout/fragment_messagelist" />
 
     <fragment
         android:id="@+id/navigation_notifications"

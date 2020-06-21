@@ -63,24 +63,32 @@ public class RegisterActivity extends AppCompatActivity {
         String email = ((EditText)findViewById(R.id.sign_email)).getText().toString();
         String password = ((EditText)findViewById(R.id.sign_password)).getText().toString();
         String passwordCheck = ((EditText)findViewById(R.id.Con_password)).getText().toString();
-
         if(email.length() > 0 && password.length() > 0 && passwordCheck.length() > 0){
             if(password.equals(passwordCheck)) {
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
+                                String uid = task.getResult().getUser().getUid();
                                 if (task.isSuccessful()) {
+                                    User userModel = new User();
+                                    userModel.email = userModel.getEmail();
+                                    userModel.uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                    FirebaseDatabase.getInstance().getReference().child("users").child(uid).setValue(userModel);
+
+
                                     FirebaseUser user = mAuth.getCurrentUser();
-
+//
                                     DatabaseReference myRef = database.getReference("users").child(user.getUid());
-
+//                                    User userModel = new User();
+                                    userModel.uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                                     Hashtable<String, String> numbers = new Hashtable<String, String>();
                                     numbers.put("email", user.getEmail());
                                     myRef.setValue(numbers);
 
-                                    startToast("Register complete.");
-//                                    Toast.makeText(RegisterActivity.this, "Register success", Toast.LENGTH_LONG).show();
+//                                    startToast("Register complete.");
+                                    Toast.makeText(RegisterActivity.this, "Register success", Toast.LENGTH_LONG).show();
+                                RegisterActivity.this.finish();
                                 } else {
                                     if(task.getException() != null) {
                                         startToast(task.getException().toString());
@@ -95,6 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
         } else {
             startToast("enter a email or password");
         }
+
     }
 
     private void startToast(String msg) {

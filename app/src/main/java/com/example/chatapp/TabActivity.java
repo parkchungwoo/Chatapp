@@ -3,17 +3,13 @@ package com.example.chatapp;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.example.chatapp.ui.dashboard.MessageFragment;
+import com.example.chatapp.ui.dashboard.MessageListFragment;
 import com.example.chatapp.ui.home.UsersFragment;
 import com.example.chatapp.ui.notifications.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 public class TabActivity extends AppCompatActivity {
 
@@ -48,7 +44,7 @@ public class TabActivity extends AppCompatActivity {
                                 .commit();
                         return true;
                     case R.id.navigation_dashboard:
-                        MessageFragment messageFragment1 = new MessageFragment();
+                        MessageListFragment messageFragment1 = new MessageListFragment();
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.container, messageFragment1)
                                 .commit();
@@ -63,10 +59,7 @@ public class TabActivity extends AppCompatActivity {
                 return false;
             }
         });
-//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        transaction.replace(R.id.nav_host_fragment, new UsersFragment());
-//        transaction.addToBackStack(null);
-//        transaction.commit();
+
 
     }
 
